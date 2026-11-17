@@ -22,7 +22,7 @@ const MARBLE_SCALE = 240; // px per marble "cell" (bigger = broader swirls)
 const MARBLE_SPEED = 0.05; // how fast the marble flows
 const VEIN_AMOUNT = 1; // how visible the veins are (0 = none)
 const VEIN_WIDTH = 0.42; // vein thickness (0.24 = thin, 0.6 = very thick)
-const MARBLE_COLORS = ["#FFFFFF", "#E2E6D8", "#C6F36B"]; // white, warm cream, lime vein (button colour)
+const MARBLE_COLORS = ["#FFFFFF", "#E2E6D8", "#FD561C"]; // white, warm cream, orange vein (primary colour)
 const PAD = 60; // px of room around the text so warped letters aren't clipped
 const TRAIL_SCALE = 0.25; // trail resolution vs. canvas
 
