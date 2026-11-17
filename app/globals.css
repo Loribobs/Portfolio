@@ -7,6 +7,7 @@
   --white: #ffffff;
   --lime: #c6f36b;
   --ink: #080808;
+  --line: rgba(236, 240, 228, 0.16);
   --pad: 64px;
   --sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   --mono: var(--font-geist-mono), ui-monospace, monospace;
@@ -61,8 +62,8 @@ h1, h2, h3, h4 { font-weight: inherit; }
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 50;
-  backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 .nav-bar {
   height: 72px;
@@ -209,6 +210,7 @@ h1, h2, h3, h4 { font-weight: inherit; }
   align-items: center;
   padding: 80px 0;
 }
+.job + .job { border-top: 1px solid var(--line); }
 .job-years, .job-company { font: 700 32px/48px var(--body); color: var(--white); }
 .job-role { margin-top: 16px; font: 400 18px/24px var(--body); color: var(--white); }
 .job-location { margin-top: 10px; font: 400 14px/16px var(--mono); color: var(--cream); }
@@ -241,17 +243,15 @@ h1, h2, h3, h4 { font-weight: inherit; }
   display: flex;
   justify-content: space-between;
 }
-/* Same flex values as the live site, including how far the row runs */
 .footer-track {
   display: flex;
-  justify-content: center;
-  gap: 567px;
-  flex-shrink: 0;
+  justify-content: space-between;
+  width: 100%;
   font: 400 14px/16px var(--mono);
   color: var(--cream);
   white-space: nowrap;
 }
-.footer-group { display: flex; gap: 221px; }
+.footer-group { display: contents; }
 
 /* =================== Tablet: 810-1439 =================== */
 @media (max-width: 1439px) {
@@ -275,7 +275,7 @@ h1, h2, h3, h4 { font-weight: inherit; }
     display: block;
     padding: 0;
   }
-  .job + .job { margin-top: 80px; }
+  .job + .job { margin-top: 40px; padding-top: 40px; }
   .job-years { font: 500 18px/24px var(--body); }
   .job-title { margin-top: 24px; }
   .job-company { font-size: 24px; line-height: 32px; }
@@ -369,7 +369,7 @@ h1, h2, h3, h4 { font-weight: inherit; }
   .about-grid { margin-top: 40px; grid-template-columns: 1fr; gap: 24px; }
   .roles-label { margin-top: 100px; }
   .jobs { padding: 32px 0; }
-  .job + .job { margin-top: 64px; }
+  .job + .job { margin-top: 32px; padding-top: 32px; }
   .job:not(:first-child) .job-years { font-weight: 700; }
   .job-role { font-weight: 400; }
 
@@ -382,6 +382,7 @@ h1, h2, h3, h4 { font-weight: inherit; }
     gap: 18px;
     flex-shrink: 1;
   }
+  .footer-group { display: flex; }
   .footer-group:first-child { justify-content: center; gap: 24px; }
   .footer-group:last-child { justify-content: space-between; gap: 0; }
 }
