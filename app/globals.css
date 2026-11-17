@@ -439,9 +439,9 @@ html.intro .intro-curtain {
   inset: 0;
   display: grid;
   place-content: center; /* column is as wide as the word, so the bar matches it */
-  gap: 20px;
+  gap: 10px;
   color: var(--bg);
-  font: 900 clamp(56px, 9vw, 128px)/1 var(--sans);
+  font: 900 24px/1 var(--sans);
   text-transform: uppercase;
 }
 .intro-word { display: inline-block; white-space: nowrap; clip-path: inset(-60% -12% -6% -12%); }
