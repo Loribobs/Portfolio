@@ -5,6 +5,7 @@ import "@fontsource/archivo/400.css";
 import "@fontsource/archivo/500.css";
 import "@fontsource/archivo/700.css";
 import "./globals.css";
+import Cursor from "@/components/Cursor";
 
 export const metadata: Metadata = {
   title: "Loromi — Product Designer",
@@ -17,7 +18,10 @@ export const viewport: Viewport = { themeColor: "#0D0D0D" };
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <Cursor />
+      </body>
     </html>
   );
 }

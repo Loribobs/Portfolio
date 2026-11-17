@@ -12,10 +12,10 @@ import { useEffect, useRef } from "react";
  */
 
 /* ---- Tweak the feel here ---- */
-const STRENGTH = 0.07; // how far letters are pushed (share of canvas size)
-const RADIUS = 0.012; // brush size
+const STRENGTH = 0.1; // how far letters are pushed (share of canvas size)
+const RADIUS = 0.016; // brush size
 const DECAY = 0.965; // trail persistence per frame (higher = longer trail)
-const COLOR_AMOUNT = 1.4; // how strongly the gradient shows in disturbed letters
+const COLOR_AMOUNT = 0; // how strongly the gradient shows in disturbed letters
 const COLORS = ["#C6F36B", "#7FE3F5", "#9D8CFF"]; // gradient stops (lime, cyan, violet)
 const PAD = 60; // px of room around the text so warped letters aren't clipped
 const TRAIL_SCALE = 0.25; // trail resolution vs. canvas
