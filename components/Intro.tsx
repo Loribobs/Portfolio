@@ -1,13 +1,14 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
+import { nav } from "@/lib/content";
 
 /**
  * Page-load intro, modelled on bitwip.fr's "Tech meets creativity" hero (timings taken
  * from their CSS):
- *  0.15s  A cream curtain covers the screen; a small dark copy of the headline types
- *         itself in, letter by letter, each one springing up from below.
- *  1.4s   The curtain wipes down, revealing the real (white) headline in the same spot.
+ *  0.15s  A cream curtain covers the screen; "LOROMI" types itself in, letter by letter,
+ *         each one springing up from below, while a thin orange bar fills underneath.
+ *  1.4s   The curtain wipes down, revealing the headline small and white.
  *  1.75s  The headline grows from 40% to full size...
  *  2.1s   ...while its three lines slide out from the centre to their final positions.
  *  2.6s   The showreel and nav fade in. At ~3.5s the marble takes over the headline.
@@ -20,8 +21,6 @@ export const INTRO_DONE = "loromi:intro-done";
 const TOTAL_MS = 3550;
 
 export default function Intro() {
-  const innerRef = useRef<HTMLDivElement>(null);
-
   useEffect(() => {
     const root = document.documentElement;
     const finish = () => {
@@ -29,9 +28,8 @@ export default function Intro() {
       window.dispatchEvent(new Event(INTRO_DONE));
     };
 
-    const inner = innerRef.current;
     const title = document.querySelector<HTMLElement>(".hero-title");
-    if (!root.classList.contains("intro") || !inner || !title || window.scrollY > 80) {
+    if (!root.classList.contains("intro") || !title || window.scrollY > 80) {
       finish();
       return;
     }
@@ -40,47 +38,14 @@ export default function Intro() {
     const box = title.getBoundingClientRect();
     const scale = box.width / title.offsetWidth || 0.4;
     const cx = box.left + box.width / 2;
-    const cy = box.top + box.height / 2;
 
-    // Dark copy for the curtain, letter by letter, laid out exactly like the real one
-    const copy = document.createElement("div");
-    copy.className = "hero-title intro-copy";
-    copy.style.width = `${title.offsetWidth}px`;
-    copy.style.left = `${cx - title.offsetWidth / 2}px`;
-    copy.style.top = `${cy - title.offsetHeight / 2}px`;
-
-    let n = 0;
+    // Lines of the real headline start gathered in the centre, then spread out
     title.querySelectorAll<HTMLElement>(".hero-line").forEach((line) => {
-      // How far this line's text is from the centre: lines start gathered in the middle
       const range = document.createRange();
       range.selectNodeContents(line);
       const r = range.getBoundingClientRect();
-      const dx = `${(cx - (r.left + r.width / 2)) / scale}px`;
-      line.style.setProperty("--dx", dx);
-
-      const clone = document.createElement("span");
-      clone.className = line.className;
-      clone.style.setProperty("--dx", dx);
-      (line.textContent || "").split(/(\s+)/).forEach((part) => {
-        if (!part) return;
-        if (/^\s+$/.test(part)) {
-          clone.append(" ");
-          return;
-        }
-        const word = document.createElement("span");
-        word.className = "intro-word";
-        for (const ch of part) {
-          const c = document.createElement("span");
-          c.className = "intro-char";
-          c.textContent = ch;
-          c.style.setProperty("--n", String(n++));
-          word.append(c);
-        }
-        clone.append(word);
-      });
-      copy.append(clone);
+      line.style.setProperty("--dx", `${(cx - (r.left + r.width / 2)) / scale}px`);
     });
-    inner.replaceChildren(copy);
 
     requestAnimationFrame(() => root.classList.add("intro-run"));
     const timer = window.setTimeout(finish, TOTAL_MS);
@@ -89,7 +54,20 @@ export default function Intro() {
 
   return (
     <div className="intro-curtain" aria-hidden="true">
-      <div className="intro-inner" ref={innerRef} />
+      <div className="intro-inner">
+        <div className="intro-mark">
+          <span className="intro-word">
+            {Array.from(nav.logo).map((ch, n) => (
+              <span className="intro-char" key={n} style={{ "--n": n } as React.CSSProperties}>
+                {ch}
+              </span>
+            ))}
+          </span>
+          <span className="intro-bar">
+            <span />
+          </span>
+        </div>
+      </div>
     </div>
   );
 }
