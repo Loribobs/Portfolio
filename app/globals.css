@@ -1,5 +1,5 @@
 /* Measured from the live Framer site. Breakpoints match it:
-   Desktop ≥ 1440 · Tablet 810–1439 · Phone < 810 */
+   Desktop â‰¥ 1440 Â· Tablet 810â€“1439 Â· Phone < 810 */
 
 :root {
   --bg: #0d0d0d;
@@ -99,40 +99,63 @@ h1, h2, h3, h4 { font-weight: inherit; }
 .hero-line.l2 { text-align: center; }
 .hero-line.l3 { text-align: end; }
 
-/* ---------- Reel ---------- */
+/* ---------- Reel (Wokine-style, driven by ReelSection.tsx) ---------- */
 .reel-section { margin-top: 120px; position: relative; }
-.pin {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  overflow: clip;
-}
-.reel {
-  position: absolute;
-  top: 12px;
-  bottom: 12px;
-  left: 0;
-  right: 0;
-  border-radius: 32px;
-  overflow: hidden;
-  transform-origin: 50% 50%;
-  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-  z-index: 2;
-}
-.reel.is-small { transform: translate(472px, 220px) scale(0.28); }
+/* Holds the reel's full-size space in the page before it starts shrinking */
+.reel-slot { height: calc(100vh - 60px); }
+/* One screen of scroll for the shrink, then the intro text */
+.reel-content { padding-top: 100vh; }
 .side-text {
-  position: absolute;
-  left: 0;
-  top: 100%;
   width: 700px;
   font: 500 54px/54px var(--body);
   color: var(--white);
-  will-change: transform;
-  z-index: 1;
 }
-.shrink-marker { height: 10vh; }
-.text-marker { height: 100vh; }
+.reel {
+  position: absolute;
+  top: 0;
+  left: calc(32px - var(--pad));
+  width: calc(100vw - 64px);
+  height: calc(100vh - 60px);
+  z-index: 2;
+  will-change: top, left, width, height;
+}
+.reel-media {
+  width: 100%;
+  height: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+.play-btn {
+  position: absolute;
+  top: calc(100% + 17px);
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--cream);
+  font: 400 12px/16px var(--mono);
+  text-transform: uppercase;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+  transition: transform 0.64s cubic-bezier(0.36, 0.33, 0, 1), opacity 0.24s cubic-bezier(0.36, 0.33, 0, 1);
+}
+.play-btn.is-visible { opacity: 1; transform: none; pointer-events: auto; }
+.play-icon {
+  width: 33px;
+  height: 33px;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.play-icon svg { margin-left: 2px; }
 
 /* ---------- Work ---------- */
 .work { padding-top: 120px; }
@@ -230,26 +253,13 @@ h1, h2, h3, h4 { font-weight: inherit; }
 }
 .footer-group { display: flex; gap: 221px; }
 
-/* =================== Tablet: 810–1439 =================== */
+/* =================== Tablet: 810â€“1439 =================== */
 @media (max-width: 1439px) {
   :root { --pad: 32px; }
 
   .hero-title { font-size: 60px; line-height: 60px; gap: 32px; }
 
-  .reel {
-    left: 0;
-    right: 0;
-    margin-inline: auto;
-    width: calc((100vh - 24px) * 746 / 744);
-    max-width: 100%;
-  }
-  .reel.is-small { transform: translate(272px, 220px) scale(0.15); }
-  .side-text {
-    top: calc(100% + 110px);
-    width: 400px;
-    font-size: 32px;
-    line-height: 32px;
-  }
+  .side-text { width: 400px; font-size: 32px; line-height: 32px; }
 
   .section-title { font-size: 69px; line-height: 69px; }
   .work-rows { gap: 0; }
@@ -329,31 +339,21 @@ h1, h2, h3, h4 { font-weight: inherit; }
   .hero-title { font-size: 48px; line-height: 48px; gap: 8px; }
   .hero-line.l2, .hero-line.l3 { text-align: start; }
 
-  /* Reel: no animation on phones */
-  .reel-section { margin-top: 160px; }
-  .pin { height: auto; overflow: visible; display: flex; flex-direction: column; }
-  .reel { order: 0; }
-  .side-text { order: 1; }
+  /* Reel: plain 16:9 card on phones, like Wokine */
+  .reel-section { margin-top: 160px; display: flex; flex-direction: column; }
+  .reel-slot { display: none; }
   .reel {
     position: relative;
-    inset: auto;
-    width: auto;
-    margin: 0;
-    aspect-ratio: 358 / 201;
-    border-radius: 8px;
-    transform: none !important;
-    transition: none;
-  }
-  .side-text {
-    position: relative;
+    order: 0;
     top: auto;
+    left: auto;
     width: auto;
-    margin-top: 80px;
-    font-size: 28px;
-    line-height: 32px;
-    transform: none !important;
+    height: auto;
+    aspect-ratio: 358 / 201;
   }
-  .shrink-marker, .text-marker { height: 10vh; }
+  .play-btn { display: none; }
+  .reel-content { order: 1; padding-top: 80px; padding-bottom: 168px; }
+  .side-text { width: auto; font-size: 28px; line-height: 32px; }
 
   /* Work */
   .section-title { font-size: 38px; line-height: 38px; }
@@ -387,5 +387,4 @@ h1, h2, h3, h4 { font-weight: inherit; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .reel { transition: none; }
 }
