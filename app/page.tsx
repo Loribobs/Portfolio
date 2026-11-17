@@ -1,4 +1,5 @@
 import Nav from "@/components/Nav";
+import HeroTitle from "@/components/HeroTitle";
 import ReelSection from "@/components/ReelSection";
 import Placeholder from "@/components/Placeholder";
 import MailIcon from "@/components/MailIcon";
@@ -13,13 +14,7 @@ export default function Home() {
       <Nav />
       <main id="top">
         <section className="hero wrap">
-          <h1 className="hero-title">
-            {hero.map((line, i) => (
-              <span key={line} className={`hero-line l${i + 1}`}>
-                {line}
-              </span>
-            ))}
-          </h1>
+          <HeroTitle lines={hero} />
         </section>
 
         <div className="wrap">

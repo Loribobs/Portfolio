@@ -97,6 +97,14 @@ h1, h2, h3, h4 { font-weight: inherit; }
   color: var(--white);
 }
 .hero-line { display: block; }
+/* Fluid effect: the canvas redraws the headline; the real text stays for a11y */
+.hero-fluid { position: relative; }
+.hero-canvas {
+  position: absolute;
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-fluid.is-fluid .hero-title { color: transparent; }
 .hero-line.l2 { text-align: center; }
 .hero-line.l3 { text-align: end; }
 
