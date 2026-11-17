@@ -19,7 +19,7 @@ export type Project = {
   slug: string;
   title: string;
   description: string;
-  /** Card background (matches the edges of the video, so "contain" looks seamless) */
+  /** Card background (same colour as the video's own background) */
   color: string;
   /** Light background needs dark label text (placeholder only) */
   light?: boolean;
@@ -46,7 +46,7 @@ export const projects: Project[] = [
     slug: "an-urban-rose",
     title: "An Urban Rose",
     description: "A digital experience to bring an immersive experience for conscious fashion.",
-    color: "#ECEEF2",
+    color: "#EFF1F5",
     light: true,
     mobileRatio: 966 / 1080,
     video: "/videos/an-urban-rose.mp4",
@@ -67,7 +67,7 @@ export const projects: Project[] = [
     title: "IncludeMe",
     description:
       "A mobile experience that helps neurodivergent employees understand their workplace rights and access reasonable adjustments.",
-    color: "#4744EB",
+    color: "#504EF6",
     mobileRatio: 930 / 1080,
     video: "/videos/includeme.mp4",
     fit: "contain",
@@ -77,7 +77,7 @@ export const projects: Project[] = [
     title: "KickSmart",
     description:
       "A smarter way for amateur EA FC players to sharpen their skills, elevate performance, and maintain their wellbeing.",
-    color: "#894BDB",
+    color: "#9355E6",
     mobileRatio: 1272 / 1440,
     video: "/videos/kicksmart.mp4",
     fit: "contain",

@@ -47,6 +47,7 @@ export default function Home() {
                           poster={`/videos/posters/${p.slug}.jpg`}
                           label={p.title}
                           fit={p.fit}
+                          ratio={p.mobileRatio}
                         />
                       ) : (
                         <Placeholder label={p.title} color={p.color} light={p.light} />
