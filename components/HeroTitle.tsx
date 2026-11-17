@@ -3,20 +3,25 @@
 import { useEffect, useRef } from "react";
 
 /**
- * Hero headline with a cursor-driven fluid effect (inspired by Framer's "Fluid Image").
+ * Hero headline: slowly flowing cream-and-white marble inside the letters, plus a
+ * cursor-driven fluid warp on desktop (inspired by Framer's "Fluid Image").
  * - The real <h1> text stays in the page for search engines and screen readers.
- * - A WebGL canvas redraws the same text on top and warps it where the cursor moves,
- *   tinting the disturbed area with a soft gradient. Clicking sends out a ripple.
- * - Falls back to the plain text if WebGL is unavailable or reduced motion is on.
- * - Only animates while the pointer is active; idles otherwise.
+ * - A WebGL canvas redraws the same text on top and fills it with a marble shader.
+ * - Mouse/trackpad: moving over the headline pushes the letters and swirls the marble;
+ *   clicking sends out a ripple. Touch screens get the marble only.
+ * - Reduced motion: one still marble frame. No WebGL: the plain white text.
+ * - Runs at ~30fps while idle, full speed while the cursor is stirring, and pauses
+ *   whenever the headline is off screen.
  */
 
 /* ---- Tweak the feel here ---- */
 const STRENGTH = 0.1; // how far letters are pushed (share of canvas size)
 const RADIUS = 0.016; // brush size
 const DECAY = 0.965; // trail persistence per frame (higher = longer trail)
-const COLOR_AMOUNT = 0; // how strongly the gradient shows in disturbed letters
-const COLORS = ["#C6F36B", "#7FE3F5", "#9D8CFF"]; // gradient stops (lime, cyan, violet)
+const MARBLE_SCALE = 240; // px per marble "cell" (bigger = broader swirls)
+const MARBLE_SPEED = 0.05; // how fast the marble flows
+const VEIN_AMOUNT = 0.85; // how visible the grey veins are (0 = none)
+const MARBLE_COLORS = ["#FFFFFF", "#E2E6D8", "#8E9187"]; // white, warm cream, warm-grey vein
 const PAD = 60; // px of room around the text so warped letters aren't clipped
 const TRAIL_SCALE = 0.25; // trail resolution vs. canvas
 
@@ -53,26 +58,53 @@ void main(){
 }`;
 
 const RENDER = `
+#ifdef GL_FRAGMENT_PRECISION_HIGH
 precision highp float;
+#else
+precision mediump float;
+#endif
 varying vec2 vUv;
 uniform sampler2D uText;
 uniform sampler2D uTrail;
 uniform float uStrength;
-uniform float uColor;
 uniform float uTime;
-uniform vec3 uC1; uniform vec3 uC2; uniform vec3 uC3;
+uniform vec2 uSize;
+uniform float uScale;
+uniform float uVein;
+uniform vec3 uWhite; uniform vec3 uCream; uniform vec3 uGrey;
 vec2 dz(vec2 v){ return sign(v) * max(abs(v) - 0.006, 0.0); }
+float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
+float noise(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  vec2 w = f * f * (3.0 - 2.0 * f);
+  return mix(mix(hash(i), hash(i + vec2(1.0, 0.0)), w.x),
+             mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), w.x), w.y);
+}
+float fbm(vec2 p){
+  float v = 0.0, a = 0.5;
+  mat2 m = mat2(1.6, 1.2, -1.2, 1.6);
+  for (int i = 0; i < 4; i++){ v += a * noise(p); p = m * p; a *= 0.5; }
+  return v;
+}
 void main(){
   vec4 t = texture2D(uTrail, vUv);
   vec2 vel = dz(t.rg * 2.0 - 1.0);
   float ink = t.b;
   vec2 uv = vUv - vel * uStrength;
   float a = texture2D(uText, vec2(uv.x, 1.0 - uv.y)).a;
-  float h = fract(uv.x * 0.9 + uv.y * 0.5 + uTime * 0.06 + ink * 0.35);
-  vec3 grad = h < 0.333 ? mix(uC1, uC2, h * 3.0)
-            : h < 0.666 ? mix(uC2, uC3, (h - 0.333) * 3.0)
-            : mix(uC3, uC1, (h - 0.666) * 3.0);
-  vec3 col = mix(vec3(1.0), grad, clamp(ink * uColor, 0.0, 1.0));
+  if (a < 0.003) { gl_FragColor = vec4(0.0); return; }
+
+  // Marble: domain-warped noise, stirred further by the cursor trail
+  vec2 p = uv * uSize / uScale + vel * 3.0;
+  float tm = uTime;
+  vec2 q = vec2(fbm(p + vec2(0.0, tm)), fbm(p + vec2(5.2, 1.3) - tm * 0.8));
+  vec2 r = vec2(fbm(p + 3.5 * q + vec2(1.7, 9.2) + tm * 0.6), fbm(p + 3.5 * q + vec2(8.3, 2.8) - tm * 0.5));
+  float f = fbm(p + 3.5 * r + ink * 0.6);
+  float shade = smoothstep(0.3, 0.7, f);
+  float bands = abs(sin(f * 11.0 + r.x * 3.0));
+  float vein = (1.0 - smoothstep(0.0, 0.24, bands)) * smoothstep(0.3, 0.6, r.y);
+  vec3 col = mix(uWhite, uCream, shade);
+  col = mix(col, uGrey, vein * uVein);
   gl_FragColor = vec4(col * a, a);
 }`;
 
@@ -88,7 +120,8 @@ export default function HeroTitle({ lines }: Props) {
   useEffect(() => {
     const wrap = wrapRef.current, title = titleRef.current, canvas = canvasRef.current;
     if (!wrap || !title || !canvas) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const finePointer = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
 
     const gl = canvas.getContext("webgl", { premultipliedAlpha: true, alpha: true, antialias: false });
     if (!gl) return;
@@ -138,7 +171,7 @@ export default function HeroTitle({ lines }: Props) {
 
     let textTex: WebGLTexture | null = null;
     let trails: { tex: WebGLTexture; fb: WebGLFramebuffer }[] = [];
-    let tw = 0, th = 0, cw = 0, ch = 0, aspect = 1;
+    let tw = 0, th = 0, cw = 0, ch = 0, aspect = 1, cssW = 1, cssH = 1;
     let cur = 0;
 
     /* ---------- Draw the headline into a texture, matching the DOM exactly ---------- */
@@ -155,6 +188,8 @@ export default function HeroTitle({ lines }: Props) {
       canvas.width = cw;
       canvas.height = ch;
       aspect = cw / ch;
+      cssW = w;
+      cssH = h;
 
       const off = document.createElement("canvas");
       off.width = cw;
@@ -227,7 +262,7 @@ export default function HeroTitle({ lines }: Props) {
     /* ---------- Pointer input ---------- */
     let mouse = { x: -10, y: -10 }, last: { x: number; y: number } | null = null;
     let delta = { x: 0, y: 0 }, burst = { x: 0, y: 0, z: 0 };
-    let lastInput = 0;
+    let lastInput = -1e9;
 
     const toUv = (cx: number, cy: number) => {
       const r = canvas.getBoundingClientRect();
@@ -252,12 +287,11 @@ export default function HeroTitle({ lines }: Props) {
     };
 
     /* ---------- Loop ---------- */
-    const c1 = hex(COLORS[0]), c2 = hex(COLORS[1]), c3 = hex(COLORS[2]);
-    let raf = 0, running = false;
+    const white = hex(MARBLE_COLORS[0]), cream = hex(MARBLE_COLORS[1]), grey = hex(MARBLE_COLORS[2]);
+    let raf = 0, visible = true, lastDraw = 0;
     const start = performance.now();
 
-    const frame = () => {
-      const now = performance.now();
+    const draw = (now: number) => {
       // trail step
       const src = trails[cur], dst = trails[1 - cur];
       gl.bindFramebuffer(gl.FRAMEBUFFER, dst.fb);
@@ -291,26 +325,47 @@ export default function HeroTitle({ lines }: Props) {
       gl.bindTexture(gl.TEXTURE_2D, trails[cur].tex);
       gl.uniform1i(u(renderProg, "uTrail"), 1);
       gl.uniform1f(u(renderProg, "uStrength"), STRENGTH);
-      gl.uniform1f(u(renderProg, "uColor"), COLOR_AMOUNT);
-      gl.uniform1f(u(renderProg, "uTime"), (now - start) / 1000);
-      gl.uniform3f(u(renderProg, "uC1"), c1[0], c1[1], c1[2]);
-      gl.uniform3f(u(renderProg, "uC2"), c2[0], c2[1], c2[2]);
-      gl.uniform3f(u(renderProg, "uC3"), c3[0], c3[1], c3[2]);
+      gl.uniform1f(u(renderProg, "uTime"), reduce ? 3.0 : ((now - start) / 1000) * MARBLE_SPEED);
+      gl.uniform2f(u(renderProg, "uSize"), cssW, cssH);
+      gl.uniform1f(u(renderProg, "uScale"), MARBLE_SCALE);
+      gl.uniform1f(u(renderProg, "uVein"), VEIN_AMOUNT);
+      gl.uniform3f(u(renderProg, "uWhite"), white[0], white[1], white[2]);
+      gl.uniform3f(u(renderProg, "uCream"), cream[0], cream[1], cream[2]);
+      gl.uniform3f(u(renderProg, "uGrey"), grey[0], grey[1], grey[2]);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
+    };
 
-      // keep running ~3s after the last movement, then rest
-      if (now - lastInput < 3000) raf = requestAnimationFrame(frame);
-      else running = false;
+    const frame = (now: number) => {
+      raf = 0;
+      if (!visible) return;
+      // full speed while the cursor is stirring (and its trail settles), ~30fps otherwise
+      const stirring = now - lastInput < 3000;
+      if (stirring || now - lastDraw > 32) {
+        draw(now);
+        lastDraw = now;
+      }
+      raf = requestAnimationFrame(frame);
+    };
+    const kick = () => {
+      if (reduce) { draw(performance.now()); return; }
+      if (!raf && visible) raf = requestAnimationFrame(frame);
     };
     const wake = () => {
       lastInput = performance.now();
-      if (!running) { running = true; raf = requestAnimationFrame(frame); }
+      kick();
     };
+
+    // pause while the headline is off screen
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      if (visible) kick();
+      else if (raf) { cancelAnimationFrame(raf); raf = 0; }
+    });
 
     let resizeTimer = 0;
     const onResize = () => {
       clearTimeout(resizeTimer);
-      resizeTimer = window.setTimeout(() => { drawText(); wake(); }, 150);
+      resizeTimer = window.setTimeout(() => { drawText(); kick(); }, 150);
     };
 
     let cancelled = false;
@@ -318,15 +373,19 @@ export default function HeroTitle({ lines }: Props) {
       if (cancelled) return;
       drawText();
       wrap.classList.add("is-fluid");
-      wake();
-      window.addEventListener("pointermove", onMove, { passive: true });
-      window.addEventListener("pointerdown", onDown, { passive: true });
+      kick();
+      io.observe(canvas);
+      if (finePointer && !reduce) {
+        window.addEventListener("pointermove", onMove, { passive: true });
+        window.addEventListener("pointerdown", onDown, { passive: true });
+      }
       window.addEventListener("resize", onResize);
     });
 
     return () => {
       cancelled = true;
       cancelAnimationFrame(raf);
+      io.disconnect();
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerdown", onDown);
       window.removeEventListener("resize", onResize);
