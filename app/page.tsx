@@ -3,6 +3,8 @@ import HeroTitle from "@/components/HeroTitle";
 import ReelSection from "@/components/ReelSection";
 import Placeholder from "@/components/Placeholder";
 import MailIcon from "@/components/MailIcon";
+import Intro from "@/components/Intro";
+import Reveal from "@/components/Reveal";
 import { hero, projects, about, roles, contact } from "@/lib/content";
 
 export default function Home() {
@@ -11,6 +13,7 @@ export default function Home() {
 
   return (
     <>
+      <Intro />
       <Nav />
       <main id="top">
         <section className="hero wrap">
@@ -22,12 +25,17 @@ export default function Home() {
         </div>
 
         <section className="work wrap" id="work">
-          <h2 className="section-title">Selected Work</h2>
+          <h2 className="section-title" data-split>Selected Work</h2>
           <div className="work-rows">
             {rows.map((row, r) => (
               <div className="work-row" key={r}>
-                {row.map((p) => (
-                  <article className="card" key={p.slug}>
+                {row.map((p, i) => (
+                  <article
+                    className="card"
+                    key={p.slug}
+                    data-reveal
+                    style={{ "--d": `${i * 0.12}s` } as React.CSSProperties}
+                  >
                     <div
                       className="card-media"
                       style={{ "--m-ratio": p.mobileRatio } as React.CSSProperties}
@@ -46,20 +54,24 @@ export default function Home() {
         </section>
 
         <section className="about wrap" id="about">
-          <h2 className="section-title">About</h2>
+          <h2 className="section-title" data-split>About</h2>
           <div className="about-grid">
-            <p className="about-highlight">{about.highlight}</p>
+            <p className="about-highlight" data-split style={{ "--step": "25ms" } as React.CSSProperties}>
+              {about.highlight}
+            </p>
             <div className="about-desc">
-              {about.paragraphs.map((t) => (
-                <p key={t.slice(0, 20)}>{t}</p>
+              {about.paragraphs.map((t, i) => (
+                <p key={t.slice(0, 20)} data-reveal style={{ "--d": `${i * 0.08}s` } as React.CSSProperties}>
+                  {t}
+                </p>
               ))}
             </div>
           </div>
 
-          <p className="mono-label roles-label">Recent Roles</p>
+          <p className="mono-label roles-label" data-reveal>Recent Roles</p>
           <div className="jobs">
             {roles.map((r) => (
-              <div className="job" key={r.company}>
+              <div className="job" key={r.company} data-reveal>
                 <h4 className="job-years">{r.years}</h4>
                 <div className="job-title">
                   <h4 className="job-company">{r.company}</h4>
@@ -76,12 +88,14 @@ export default function Home() {
       <footer className="footer" id="contact">
         <div className="footer-main">
           <MailIcon />
-          <h2 className="footer-title">{contact.heading}</h2>
-          <a className="btn" href={contact.button.href}>
+          <h2 className="footer-title" data-split>
+            {contact.heading}
+          </h2>
+          <a className="btn" href={contact.button.href} data-reveal style={{ "--d": "0.3s" } as React.CSSProperties}>
             {contact.button.label}
           </a>
         </div>
-        <nav className="footer-nav" aria-label="Contact">
+        <nav className="footer-nav" aria-label="Contact" data-reveal>
           <div className="footer-track">
             <div className="footer-group">
               {contact.left.map((l) => (
@@ -100,6 +114,7 @@ export default function Home() {
           </div>
         </nav>
       </footer>
+      <Reveal />
     </>
   );
 }

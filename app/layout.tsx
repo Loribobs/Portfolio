@@ -15,9 +15,17 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = { themeColor: "#0D0D0D" };
 
+// Runs before the first paint: marks JS as available (for scroll reveals) and, on the
+// home page, arms the intro curtain. If the app hasn't started the intro within 2.5s
+// (slow connection), it's dropped so nobody stares at a blank curtain.
+const prePaint = `(function(){var d=document.documentElement;d.classList.add('js');try{if(location.pathname==='/'&&!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('intro');setTimeout(function(){if(!d.classList.contains('intro-run'))d.classList.remove('intro')},2500)}}catch(e){}})();`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`}>
+    <html lang="en" className={`${GeistSans.variable} ${GeistMono.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: prePaint }} />
+      </head>
       <body>
         {children}
         <Cursor />

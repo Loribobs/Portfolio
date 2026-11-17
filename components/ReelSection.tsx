@@ -100,7 +100,7 @@ export default function ReelSection() {
     <section className="reel-section" ref={sectionRef} aria-label="Showreel">
       <div className="reel-slot" aria-hidden="true" />
       <div className="reel-content">
-        <p className="side-text" ref={textRef}>
+        <p className="side-text" ref={textRef} data-split style={{ "--step": "18ms" } as React.CSSProperties}>
           {intro}
         </p>
       </div>

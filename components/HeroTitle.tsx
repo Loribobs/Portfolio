@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { INTRO_DONE } from "./Intro";
 
 /**
  * Hero headline: slowly flowing cream-and-white marble inside the letters, plus a
@@ -21,7 +22,7 @@ const DECAY = 0.965; // trail persistence per frame (higher = longer trail)
 const MARBLE_SCALE = 240; // px per marble "cell" (bigger = broader swirls)
 const MARBLE_SPEED = 0.05; // how fast the marble flows
 const VEIN_AMOUNT = 1; // how visible the veins are (0 = none)
-const VEIN_WIDTH = 0.42; // vein thickness (0.24 = thin, 0.6 = very thick)
+const VEIN_WIDTH = 0.32; // vein thickness (0.24 = thin, 0.6 = very thick)
 const MARBLE_COLORS = ["#FFFFFF", "#E2E6D8", "#FD561C"]; // white, warm cream, orange vein (primary colour)
 const PAD = 60; // px of room around the text so warped letters aren't clipped
 const TRAIL_SCALE = 0.25; // trail resolution vs. canvas
@@ -371,28 +372,38 @@ export default function HeroTitle({ lines }: Props) {
       resizeTimer = window.setTimeout(() => { drawText(); kick(); }, 150);
     };
 
-    let cancelled = false;
-    document.fonts.ready.then(() => {
+    let cancelled = false, fluidTimer = 0;
+    const begin = () => {
       if (cancelled) return;
       drawText();
-      wrap.classList.add("is-fluid");
       kick();
+      // fade the marble canvas in over the plain text, then hide the plain text
+      wrap.classList.add("is-ready");
+      fluidTimer = window.setTimeout(() => wrap.classList.add("is-fluid"), 700);
       io.observe(canvas);
       if (finePointer && !reduce) {
         window.addEventListener("pointermove", onMove, { passive: true });
         window.addEventListener("pointerdown", onDown, { passive: true });
       }
       window.addEventListener("resize", onResize);
+    };
+    document.fonts.ready.then(() => {
+      if (cancelled) return;
+      // wait for the page-load intro to finish growing the headline
+      if (document.documentElement.classList.contains("intro")) window.addEventListener(INTRO_DONE, begin, { once: true });
+      else begin();
     });
 
     return () => {
       cancelled = true;
+      clearTimeout(fluidTimer);
+      window.removeEventListener(INTRO_DONE, begin);
       cancelAnimationFrame(raf);
       io.disconnect();
       window.removeEventListener("pointermove", onMove);
       window.removeEventListener("pointerdown", onDown);
       window.removeEventListener("resize", onResize);
-      wrap.classList.remove("is-fluid");
+      wrap.classList.remove("is-fluid", "is-ready");
     };
   }, []);
 
