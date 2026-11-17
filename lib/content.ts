@@ -19,12 +19,16 @@ export type Project = {
   slug: string;
   title: string;
   description: string;
-  /** Placeholder colour until the real video goes in */
+  /** Card background (matches the edges of the video, so "contain" looks seamless) */
   color: string;
-  /** Light placeholder needs dark label text */
+  /** Light background needs dark label text (placeholder only) */
   light?: boolean;
-  /** Width / height of the media box on phones (matches the live site) */
+  /** Width / height of the media box on phones (matches the video's own shape) */
   mobileRatio: number;
+  /** Preview video in /public/videos; poster lives in /public/videos/posters/<slug>.jpg */
+  video?: string;
+  /** "cover" fills the card (landscape screens); "contain" shows the whole phone mockup */
+  fit?: "cover" | "contain";
 };
 
 export const projects: Project[] = [
@@ -35,14 +39,18 @@ export const projects: Project[] = [
       "End-to-end product and visual design to simplify investment management for modern investors",
     color: "#1E1E21",
     mobileRatio: 358 / 234,
+    video: "/videos/fora.mp4",
+    fit: "cover",
   },
   {
     slug: "an-urban-rose",
     title: "An Urban Rose",
     description: "A digital experience to bring an immersive experience for conscious fashion.",
-    color: "#EFF1F5",
+    color: "#ECEEF2",
     light: true,
-    mobileRatio: 358 / 400,
+    mobileRatio: 966 / 1080,
+    video: "/videos/an-urban-rose.mp4",
+    fit: "contain",
   },
   {
     slug: "socius-ai",
@@ -51,29 +59,37 @@ export const projects: Project[] = [
       "Bringing transparency and control to workplace AI, enabling teams to collaborate with AI more confidently and responsibly.",
     color: "#03798A",
     mobileRatio: 358 / 245,
+    video: "/videos/socius-ai.mp4",
+    fit: "cover",
   },
   {
     slug: "includeme",
     title: "IncludeMe",
     description:
       "A mobile experience that helps neurodivergent employees understand their workplace rights and access reasonable adjustments.",
-    color: "#504EF6",
-    mobileRatio: 358 / 416,
+    color: "#4744EB",
+    mobileRatio: 930 / 1080,
+    video: "/videos/includeme.mp4",
+    fit: "contain",
   },
   {
     slug: "kicksmart",
     title: "KickSmart",
     description:
       "A smarter way for amateur EA FC players to sharpen their skills, elevate performance, and maintain their wellbeing.",
-    color: "#9455E6",
-    mobileRatio: 358 / 150,
+    color: "#894BDB",
+    mobileRatio: 1272 / 1440,
+    video: "/videos/kicksmart.mp4",
+    fit: "contain",
   },
   {
     slug: "control-lane",
     title: "Control Lane",
     description: "Bringing client accounts, compliance, and transactions into one control centre.",
     color: "#1E1E21",
-    mobileRatio: 358 / 150,
+    mobileRatio: 2230 / 1440,
+    video: "/videos/control-lane.mp4",
+    fit: "cover",
   },
 ];
 

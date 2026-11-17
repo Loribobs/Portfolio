@@ -2,6 +2,7 @@ import Nav from "@/components/Nav";
 import HeroTitle from "@/components/HeroTitle";
 import ReelSection from "@/components/ReelSection";
 import Placeholder from "@/components/Placeholder";
+import Video from "@/components/Video";
 import MailIcon from "@/components/MailIcon";
 import Intro from "@/components/Intro";
 import Reveal from "@/components/Reveal";
@@ -38,9 +39,18 @@ export default function Home() {
                   >
                     <div
                       className="card-media"
-                      style={{ "--m-ratio": p.mobileRatio } as React.CSSProperties}
+                      style={{ "--m-ratio": p.mobileRatio, background: p.color } as React.CSSProperties}
                     >
-                      <Placeholder label={p.title} color={p.color} light={p.light} />
+                      {p.video ? (
+                        <Video
+                          src={p.video}
+                          poster={`/videos/posters/${p.slug}.jpg`}
+                          label={p.title}
+                          fit={p.fit}
+                        />
+                      ) : (
+                        <Placeholder label={p.title} color={p.color} light={p.light} />
+                      )}
                     </div>
                     <div className="card-text">
                       <h3 className="card-title">{p.title}</h3>

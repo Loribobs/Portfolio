@@ -4,3 +4,9 @@ out
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+# raw, uncompressed video exports (compressed copies live in public/videos)
+/video-source/
+
+# macOS folder files
+.DS_Store
