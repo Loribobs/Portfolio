@@ -21,6 +21,7 @@ const DECAY = 0.965; // trail persistence per frame (higher = longer trail)
 const MARBLE_SCALE = 240; // px per marble "cell" (bigger = broader swirls)
 const MARBLE_SPEED = 0.05; // how fast the marble flows
 const VEIN_AMOUNT = 1; // how visible the veins are (0 = none)
+const VEIN_WIDTH = 0.42; // vein thickness (0.24 = thin, 0.6 = very thick)
 const MARBLE_COLORS = ["#FFFFFF", "#E2E6D8", "#C6F36B"]; // white, warm cream, lime vein (button colour)
 const PAD = 60; // px of room around the text so warped letters aren't clipped
 const TRAIL_SCALE = 0.25; // trail resolution vs. canvas
@@ -71,6 +72,7 @@ uniform float uTime;
 uniform vec2 uSize;
 uniform float uScale;
 uniform float uVein;
+uniform float uVeinW;
 uniform vec3 uWhite; uniform vec3 uCream; uniform vec3 uGrey;
 vec2 dz(vec2 v){ return sign(v) * max(abs(v) - 0.006, 0.0); }
 float hash(vec2 p){ p = fract(p * vec2(123.34, 456.21)); p += dot(p, p + 45.32); return fract(p.x * p.y); }
@@ -102,7 +104,7 @@ void main(){
   float f = fbm(p + 3.5 * r + ink * 0.6);
   float shade = smoothstep(0.3, 0.7, f);
   float bands = abs(sin(f * 11.0 + r.x * 3.0));
-  float vein = (1.0 - smoothstep(0.0, 0.24, bands)) * smoothstep(0.3, 0.6, r.y);
+  float vein = (1.0 - smoothstep(uVeinW * 0.45, uVeinW, bands)) * smoothstep(0.2, 0.5, r.y);
   vec3 col = mix(uWhite, uCream, shade);
   col = mix(col, uGrey, vein * uVein);
   gl_FragColor = vec4(col * a, a);
@@ -329,6 +331,7 @@ export default function HeroTitle({ lines }: Props) {
       gl.uniform2f(u(renderProg, "uSize"), cssW, cssH);
       gl.uniform1f(u(renderProg, "uScale"), MARBLE_SCALE);
       gl.uniform1f(u(renderProg, "uVein"), VEIN_AMOUNT);
+      gl.uniform1f(u(renderProg, "uVeinW"), VEIN_WIDTH);
       gl.uniform3f(u(renderProg, "uWhite"), white[0], white[1], white[2]);
       gl.uniform3f(u(renderProg, "uCream"), cream[0], cream[1], cream[2]);
       gl.uniform3f(u(renderProg, "uGrey"), grey[0], grey[1], grey[2]);
