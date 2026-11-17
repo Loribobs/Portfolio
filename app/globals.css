@@ -87,7 +87,10 @@ h1, h2, h3, h4 { font-weight: inherit; }
 .menu-btn, .menu-sheet { display: none; }
 
 /* ---------- Hero ---------- */
-.hero { padding-top: 240px; }
+.hero {
+  padding-top: 240px;
+  overflow-x: clip; /* the headline canvas has extra room for warped letters; keep it from widening the page */
+}
 .hero-title {
   display: flex;
   flex-direction: column;

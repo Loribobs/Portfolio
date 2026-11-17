@@ -57,7 +57,21 @@ export default function Reveal() {
         }),
       { rootMargin: "0px 0px -8% 0px" }
     );
-    const start = () => els.forEach((el) => io.observe(el));
+    // Items right at the bottom of the page can never scroll far enough up to trigger,
+    // so once the page is scrolled to the end, show whatever is left.
+    const onScroll = () => {
+      if (window.innerHeight + window.scrollY < document.documentElement.scrollHeight - 4) return;
+      els.forEach((el) => {
+        if (el.classList.contains("is-in")) return;
+        el.classList.add("is-in");
+        io.unobserve(el);
+      });
+    };
+    const start = () => {
+      els.forEach((el) => io.observe(el));
+      window.addEventListener("scroll", onScroll, { passive: true });
+      onScroll();
+    };
 
     // Hold everything until the page-load intro has finished
     if (document.documentElement.classList.contains("intro")) {
@@ -67,6 +81,7 @@ export default function Reveal() {
     return () => {
       io.disconnect();
       window.removeEventListener(INTRO_DONE, start);
+      window.removeEventListener("scroll", onScroll);
     };
   }, []);
 
