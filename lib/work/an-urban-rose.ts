@@ -338,20 +338,6 @@ export const anUrbanRose: CaseStudy = {
         ],
       },
       {
-        id: "ai",
-        title: "Where AI helped",
-        blocks: [
-          {
-            type: "points",
-            items: [
-              { title: "In the product", body: "AI is the core of the try-on: instead of holding a phone at arm's length, shoppers get generated shots of themselves wearing the tee." },
-              { title: "In the visuals", body: "We used Figma AI to create variations of models wearing An Urban Rose tees for the prototype screens, and Higgsfield AI for the storyboard illustrations in our final presentation." },
-              { title: "In the process", body: "ChatGPT helped organise early research notes and draft follow-up questions for interviews and tests. The design decisions, analysis and findings were the team's own." },
-            ],
-          },
-        ],
-      },
-      {
         id: "next",
         title: "What I'd do next",
         blocks: [
