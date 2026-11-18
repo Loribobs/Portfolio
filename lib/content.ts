@@ -3,8 +3,8 @@
 export const nav = {
   logo: "LOROMI",
   links: [
-    { label: "PROJECTS", href: "#work" },
-    { label: "ABOUT", href: "#about" },
+    { label: "PROJECTS", href: "/#work" },
+    { label: "ABOUT", href: "/#about" },
     { label: "RESUME", href: "#" }, // TODO: link to résumé PDF
   ],
   cta: { label: "LET'S CHAT", href: "#contact" },

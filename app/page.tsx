@@ -3,10 +3,12 @@ import HeroTitle from "@/components/HeroTitle";
 import ReelSection from "@/components/ReelSection";
 import Placeholder from "@/components/Placeholder";
 import Video from "@/components/Video";
-import MailIcon from "@/components/MailIcon";
+import Footer from "@/components/Footer";
+import MaybeLink from "@/components/MaybeLink";
 import Intro from "@/components/Intro";
 import Reveal from "@/components/Reveal";
-import { hero, projects, about, roles, contact } from "@/lib/content";
+import { hero, projects, about, roles } from "@/lib/content";
+import { getCaseStudy } from "@/lib/work";
 
 export default function Home() {
   // Projects are laid out in rows of two (matches the live grid's spacing)
@@ -37,6 +39,7 @@ export default function Home() {
                     data-reveal
                     style={{ "--d": `${i * 0.12}s` } as React.CSSProperties}
                   >
+                    <MaybeLink href={getCaseStudy(p.slug) ? `/work/${p.slug}` : undefined} className="card-link">
                     <div
                       className="card-media"
                       style={{ "--m-ratio": p.mobileRatio, background: p.color } as React.CSSProperties}
@@ -57,6 +60,7 @@ export default function Home() {
                       <h3 className="card-title">{p.title}</h3>
                       <p className="card-desc">{p.description}</p>
                     </div>
+                    </MaybeLink>
                   </article>
                 ))}
               </div>
@@ -96,35 +100,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="footer" id="contact">
-        <div className="footer-main">
-          <MailIcon />
-          <h2 className="footer-title" data-split>
-            {contact.heading}
-          </h2>
-          <a className="btn" href={contact.button.href} data-reveal style={{ "--d": "0.3s" } as React.CSSProperties}>
-            {contact.button.label}
-          </a>
-        </div>
-        <nav className="footer-nav" aria-label="Contact" data-reveal>
-          <div className="footer-track">
-            <div className="footer-group">
-              {contact.left.map((l) => (
-                <a key={l.label} href={l.href}>
-                  {l.label}
-                </a>
-              ))}
-            </div>
-            <div className="footer-group">
-              {contact.right.map((l) => (
-                <a key={l.label} href={l.href}>
-                  {l.label}
-                </a>
-              ))}
-            </div>
-          </div>
-        </nav>
-      </footer>
+      <Footer />
       <Reveal />
     </>
   );

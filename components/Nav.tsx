@@ -19,7 +19,7 @@ export default function Nav() {
   return (
     <header className={`nav ${open ? "is-open" : ""}`}>
       <div className="nav-bar">
-        <a className="nav-logo" href="#top" onClick={close}>
+        <a className="nav-logo" href="/#top" onClick={close}>
           {nav.logo}
         </a>
 
