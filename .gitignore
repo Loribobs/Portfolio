@@ -10,3 +10,6 @@ next-env.d.ts
 
 # macOS folder files
 .DS_Store
+
+# private source material for case studies (MSc reports, Figma exports, notes)
+/case-study-source/

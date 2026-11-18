@@ -15,6 +15,8 @@ export type Media = {
   bg?: string;
   /** "contain" for phone mockups so nothing is cropped */
   fit?: "cover" | "contain";
+  /** For "contain" videos sitting in a differently shaped box: the video's own width / height */
+  videoRatio?: number;
 };
 
 export type Block =
