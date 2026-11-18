@@ -11,10 +11,10 @@ const slot = (label: string, ratio = 16 / 10, fit?: Media["fit"]): Media => ({
 
 export const fora: CaseStudy = {
   slug: "fora",
-  tags: ["Fintech", "Web & mobile", "2022 – 2024"],
+  tags: ["Fintech", "Wealth management", "Web & mobile", "2022 – 2024"],
   title: "Fora",
   summary:
-    "A self-service investment dashboard that lets Kudy's clients get verified, buy and sell funds, and track their money without waiting on an account manager.",
+    "The investment platform for Kudy, a global fund manager. Clients explore funds, invest in dollars or naira, and manage their wealth on web and mobile, without going through an account manager.",
   facts: [
     { label: "Role", value: "Product Designer, design lead" },
     { label: "Team", value: "1 designer, 1 PM, 6 engineers" },
@@ -30,9 +30,9 @@ export const fora: CaseStudy = {
   },
   short: {
     product:
-      "Fora is Kudy's client dashboard on web and mobile. Investors use it to verify their identity, read up on funds, subscribe or sell, and keep track of how their money is doing.",
+      "Fora is Kudy's investment platform on web and mobile, in the same space as Wealthsimple or Cowrywise. Clients explore funds, from Eurobonds to hedge funds, invest or withdraw, and keep track of how their portfolio is doing.",
     problem:
-      "Kudy started as a private investment club, where an account manager handled every subscription, withdrawal and question. That works for a club. It doesn't work for a global investment manager.",
+      "Kudy started as a private investment club, where an account manager handled every investment, withdrawal and question. That works for a club. It doesn't work for a global investment manager with clients investing in more than one currency.",
     outcome:
       "Clients now do it themselves. Over 2,000 have signed up and actively use Fora, millions have gone through it in fund subscriptions, and company revenue grew 7%.",
   },
@@ -45,30 +45,47 @@ export const fora: CaseStudy = {
   showcase: [
     {
       type: "statement",
-      label: "Getting verified",
-      text: "Before anyone can invest, they have to prove who they are. That used to go through an account manager. Now it happens in a few screens.",
-    },
-    {
-      type: "media",
-      media: slot("KYC document upload flow (screen recording)"),
-      caption: "Clients upload their KYC documents and personal details themselves, so verification no longer waits on support.",
-    },
-    {
-      type: "statement",
-      label: "Choosing a fund",
-      text: "Enough detail to make a decision, without needing someone to explain it.",
+      label: "Finding a fund",
+      text: "Every fund explains itself: what it invests in, its rate, the minimums. Enough to decide without calling anyone.",
     },
     {
       type: "grid",
       items: [
-        { media: slot("Fund detail page", 4 / 3), caption: "Fund details: what it invests in, rate, minimums." },
-        { media: slot("Subscribe / sell flow", 4 / 3), caption: "Subscribing and selling, with no account manager in the loop." },
+        { media: slot("Funds list", 4 / 3), caption: "Kudy's funds side by side, from Eurobonds to hedge funds." },
+        { media: slot("Fund detail page", 4 / 3), caption: "Everything about a fund on one page." },
       ],
+    },
+    {
+      type: "statement",
+      label: "Investing",
+      text: "Putting money in or taking it out happens in the app, start to finish, in dollars or naira.",
+    },
+    {
+      type: "grid",
+      items: [
+        { media: slot("Subscribe flow", 4 / 3), caption: "Investing in a fund, with no account manager in the loop." },
+        { media: slot("Redeem / sell flow", 4 / 3), caption: "Selling out of a fund just as easily." },
+      ],
+    },
+    {
+      type: "statement",
+      label: "Managing wealth",
+      text: "One view of everything a client owns and how it's performing.",
     },
     {
       type: "media",
       media: slot("Portfolio overview dashboard"),
-      caption: "One place to see every fund a client holds and how it's doing.",
+      caption: "Every holding, across funds and currencies, in one place.",
+    },
+    {
+      type: "statement",
+      label: "Getting started",
+      text: "Regulators still need the paperwork. Onboarding collects it in the app, so new clients can get to investing.",
+    },
+    {
+      type: "media",
+      media: slot("Onboarding and KYC upload (screen recording)"),
+      caption: "Clients upload their documents and details themselves instead of sending them to an account manager.",
     },
     {
       type: "statement",
@@ -106,7 +123,7 @@ export const fora: CaseStudy = {
   full: {
     title: "Making wealth creation accessible",
     standfirst:
-      "How a private investment club's back-office became a dashboard 2,000+ clients run on their own.",
+      "How a private investment club became an investment platform 2,000+ clients use to manage their own money.",
     chapters: [
       {
         id: "setting",
@@ -115,9 +132,10 @@ export const fora: CaseStudy = {
           {
             type: "text",
             paragraphs: [
-              "Kudy began as a private investment club. Members knew each other, and an account manager took care of almost everything: getting new members set up, putting money into funds, taking it out, answering questions about how a fund worked.",
-              "As Kudy grew into a global investment manager, that model hit a ceiling. More clients meant more documents to chase, more emails to answer and longer waits for everyone. The business needed clients to be able to help themselves.",
-              "Fora was the answer: a client dashboard on web and mobile. It launched in late 2024. I led the design, from the UX and visual identity to the design system the product is built on, working with one product manager and six engineers.",
+              "Kudy is a global alternative investment manager, licensed in Luxembourg and, since 2023, by Nigeria's SEC. It gives clients access to funds like Eurobonds and hedge funds, in dollars and naira.",
+              "It began as a private investment club. Members knew each other, and an account manager took care of almost everything: putting money into funds, taking it out, answering questions about how a fund worked.",
+              "As Kudy grew into a global investment manager, that model hit a ceiling. More clients meant more requests to handle, more emails to answer and longer waits for everyone. The business needed clients to be able to invest on their own.",
+              "Fora is the platform that made that possible: the place clients explore funds, invest, withdraw and manage their portfolio on web and mobile, much like Wealthsimple or Cowrywise do for their users. It launched in late 2024. I led the design, from the UX and visual identity to the design system the product is built on, working with one product manager and six engineers.",
             ],
           },
           { type: "media", media: slot("Fora on web and mobile, side by side") },
@@ -169,41 +187,49 @@ export const fora: CaseStudy = {
         ],
       },
       {
-        id: "onboarding",
-        title: "The first door: getting verified",
-        blocks: [
-          {
-            type: "text",
-            paragraphs: [
-              "Nobody can invest until they've been verified. Regulations require identity documents and personal details for every client, and before Fora, collecting them went through an account manager.",
-              "I designed an upload flow that collects KYC documents and personal information inside the dashboard. Clients can get through compliance on their own, and it took a lot of repetitive work off the support team.",
-            ],
-          },
-          {
-            type: "media",
-            media: slot("KYC document upload flow (screen recording)"),
-            caption: "The document upload flow, from first screen to submitted.",
-          },
-        ],
-      },
-      {
         id: "investing",
-        title: "Making the money part effortless",
+        title: "Investing, start to finish",
         blocks: [
           {
             type: "text",
             paragraphs: [
-              "Once a client is verified, Fora comes down to three jobs: understand a fund, put money in or take it out, and see how it's doing. I kept the dashboard deliberately minimal and built it around those three jobs, so the important actions are never buried.",
+              "At its core, Fora does three jobs: help clients find the right fund, let them put money in or take it out, and show them how their portfolio is doing. I kept the dashboard deliberately minimal and built it around those three jobs, so the important actions are never buried.",
+              "Each fund gets its own page with what it invests in, its rate and its minimums, so clients can compare a Eurobond fund with a hedge fund without needing someone to explain the difference. Subscribing and redeeming happen right there, in dollars or naira.",
             ],
           },
           {
             type: "grid",
             items: [
+              { media: slot("Funds list", 4 / 3), caption: "Funds" },
               { media: slot("Fund detail page", 4 / 3), caption: "Fund details" },
-              { media: slot("Subscribe / sell flow", 4 / 3), caption: "Subscribe and sell" },
+            ],
+          },
+          {
+            type: "grid",
+            items: [
+              { media: slot("Subscribe flow", 4 / 3), caption: "Investing" },
+              { media: slot("Redeem / sell flow", 4 / 3), caption: "Withdrawing" },
             ],
           },
           { type: "media", media: slot("Portfolio overview dashboard"), caption: "Tracking every holding in one place" },
+        ],
+      },
+      {
+        id: "onboarding",
+        title: "Getting started without the paperwork",
+        blocks: [
+          {
+            type: "text",
+            paragraphs: [
+              "Before anyone can invest, regulators require identity documents and personal details. That step used to go through an account manager too.",
+              "I designed onboarding so clients upload their KYC documents and details inside the app and move straight on to investing. It also took a lot of repetitive work off the support team.",
+            ],
+          },
+          {
+            type: "media",
+            media: slot("Onboarding and KYC upload (screen recording)"),
+            caption: "Onboarding, from first screen to ready to invest.",
+          },
         ],
       },
       {
