@@ -37,6 +37,7 @@ export default function Home() {
                     className="card"
                     key={p.slug}
                     data-reveal
+                    data-cursor={getCaseStudy(p.slug) ? undefined : "locked"}
                     style={{ "--d": `${i * 0.12}s` } as React.CSSProperties}
                   >
                     <MaybeLink href={getCaseStudy(p.slug) ? `/work/${p.slug}` : undefined} className="card-link">
