@@ -733,7 +733,7 @@ html.intro-run .nav { animation: intro-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1) 2
 @media (max-width: 809px) {
   .wk-hero { padding-top: 140px; }
   .wk-tags { margin-top: 48px; font-size: 12px; }
-  .wk-title { font-size: 96px; line-height: 0.9; }
+  .wk-title { font-size: min(96px, 19vw); line-height: 0.9; overflow-wrap: anywhere; }
   .wk-title-sm { font-size: 38px; line-height: 40px; }
   .wk-summary { margin-top: 24px; font-size: 20px; line-height: 28px; }
   .wk-facts { margin-top: 48px; gap: 24px 16px; }

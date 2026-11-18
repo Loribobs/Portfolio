@@ -1,9 +1,10 @@
 import type { CaseStudy } from "./types";
 import { fora } from "./fora";
 import { anUrbanRose } from "./an-urban-rose";
+import { sociusAi } from "./socius-ai";
 
 // Add each new project here once its file exists in lib/work/
-export const caseStudies: CaseStudy[] = [fora, anUrbanRose];
+export const caseStudies: CaseStudy[] = [fora, anUrbanRose, sociusAi];
 
 export const getCaseStudy = (slug: string) => caseStudies.find((c) => c.slug === slug);
 
