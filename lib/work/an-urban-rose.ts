@@ -29,7 +29,7 @@ export const anUrbanRose: CaseStudy = {
   tags: ["Sustainable fashion", "AI & AR", "Mobile web", "2025 – 2026"],
   title: "An Urban Rose",
   summary:
-    "A phone experience for a sustainable fashion brand's pop-up shoppers. Scan the tag, try the tee on with AI, see why it costs £18, and follow the story behind the cotton.",
+    "A small organic T-shirt brand sells mostly at pop-up events. We designed what happens when a shopper scans the tag: they try the tee on with AI, see why it costs £18, and find out where the cotton came from.",
   facts: [
     { label: "Role", value: "UI Designer" },
     { label: "Team", value: "6: PM, 3 researchers, UX designer, UI designer" },
@@ -47,11 +47,11 @@ export const anUrbanRose: CaseStudy = {
   },
   short: {
     product:
-      "An Urban Rose is a small sustainable fashion brand that sells organic cotton tees at pop-up events. We designed a mobile web experience shoppers open from the QR code on the tag: try the tee on, compare it with fast fashion, and see where it came from.",
+      "An Urban Rose makes organic cotton tees and sells most of them at pop-up events. We designed a mobile web experience that opens when a shopper scans the QR code on the hang tag, with no app to download.",
     problem:
-      "People say they care about sustainable fashion, then buy the £8 tee anyway. At a pop-up, shoppers decide in seconds, aren't sure about fit, and have heard every green claim before. The job was to close that gap without guilt-tripping anyone.",
+      "Lots of people say they care about sustainable fashion and then buy the £8 tee anyway. At a pop-up they decide quickly, can't try anything on, and have heard so many green claims that they've stopped believing them. We needed to get them past that without lecturing them.",
     outcome:
-      "In moderated testing the prototype scored 81.5 on the System Usability Scale, a grade A. People found the try-on easily, trusted the sustainability claims, and explained the price in their own words without being prompted.",
+      "The prototype scored 81.5 on the System Usability Scale in moderated testing, which is a grade A. People found the try-on easily, said the claims felt believable, and several explained the £18 price back to us without being asked.",
   },
   stats: [
     { value: "81.5", label: "System Usability Scale score (grade A)" },
@@ -63,66 +63,66 @@ export const anUrbanRose: CaseStudy = {
     {
       type: "statement",
       label: "Scan the tag",
-      text: "It starts with the QR code on the hang tag. Nothing to download. The brand's story opens right in the browser.",
+      text: "Everything starts from the QR code on the hang tag. It opens in the phone's browser, because nobody at a pop-up is going to download an app.",
     },
     {
       type: "media",
       media: clip("landing", "Landing page after scanning the tag", 16 / 9),
-      caption: "Scan, and you're straight into the brand and the try-on.",
+      caption: "Scanning takes you straight to the brand and the try-on.",
     },
     {
       type: "statement",
       label: "Try it on",
-      text: "Fit is the first worry at a pop-up. Pick a colour, snap a photo, and see yourself in the tee.",
+      text: "Fit was the first thing people worried about. You pick a colour, take a photo, and AI shows you wearing the tee.",
     },
     {
       type: "grid",
       items: [
-        { media: clip("tryon", "Choosing a tee colour in the try-on"), caption: "Browse colours on yourself, live." },
-        { media: clip("ai-shots", "AI generating shots of the shopper wearing the tee"), caption: "AI puts you in the tee across a few different scenes." },
+        { media: clip("tryon", "Choosing a tee colour in the try-on"), caption: "Trying colours on with the live camera." },
+        { media: clip("ai-shots", "AI generating shots of the shopper wearing the tee"), caption: "AI puts you in the tee in a few different scenes." },
       ],
     },
     {
       type: "statement",
       label: "Why £18?",
-      text: "Next to an £8 high-street tee, £18 needs a reason. So we put the two side by side.",
+      text: "Price was the biggest objection in our research, so we put the tee next to a typical £8 high-street one and compared them.",
     },
     {
       type: "media",
       media: clip("compare", "Comparison of fast fashion and An Urban Rose", 16 / 9),
-      caption: "Cost per wear, lifespan and quality: fast fashion against An Urban Rose.",
+      caption: "Cost per wear, how long it lasts and fabric quality, side by side.",
     },
     {
       type: "statement",
       label: "The story",
-      text: "Organic cotton, fair wages, certified at every step. Told in pictures, not paragraphs.",
+      text: "Where the cotton comes from, how it's made and who it supports, told mostly in pictures.",
     },
     {
       type: "grid",
       items: [
-        { media: clip("story", "Product story carousel"), caption: "Where the cotton comes from, how it's made, who it supports." },
-        { media: clip("ar-story", "Product story playing in AR on the pop-up table"), caption: "At the pop-up, the same story plays in AR on the display table." },
+        { media: clip("story", "Product story carousel"), caption: "The product story on your phone." },
+        { media: clip("ar-story", "Product story playing in AR on the pop-up table"), caption: "The same story playing in AR on the display table at the pop-up." },
       ],
     },
     {
       type: "statement",
-      label: "How it got here",
-      text: "The first try-on asked people to hold their phone at arm's length. We caught that early and moved to AI.",
+      label: "What didn't work",
+      text: "Our first try-on had people holding their phone at arm's length. We tested it early, saw it wasn't going to work, and switched to AI.",
     },
     {
       type: "media",
       media: figure("explorations", 1468 / 1186, "Sprint 1 try-on explorations"),
-      caption: "Sprint 1: the first AR try-on, front camera at arm's length.",
+      caption: "Sprint 1: the original AR try-on using the front camera.",
     },
     {
       type: "media",
       media: figure("merged-flow", 1682 / 1046, "Sprint 2 merged AI and AR flow"),
-      caption: "Sprint 2: the merged AI and AR flow, from scanning the tag to the story.",
+      caption: "Sprint 2: the flow we tested, from scanning the tag to the story.",
     },
     {
       type: "statement",
       label: "Design system",
-      text: "Tokens for colour, type and grid, and a spec with every measurement and state, ready for a developer.",
+      text: "I set up tokens for colour, type and grid, and wrote a spec with every measurement and state so a developer could build it.",
     },
     {
       type: "grid",
@@ -135,7 +135,7 @@ export const anUrbanRose: CaseStudy = {
   full: {
     title: "Making an £18 T-shirt make sense",
     standfirst:
-      "How a team of six designed a try-on and storytelling experience to help pop-up shoppers trust a sustainable brand, and what testing taught us.",
+      "A team of six, twelve weeks, and one question: how do you get someone at a pop-up to trust a sustainable brand enough to pay more?",
     chapters: [
       {
         id: "brief",
@@ -144,20 +144,20 @@ export const anUrbanRose: CaseStudy = {
           {
             type: "text",
             paragraphs: [
-              "An Urban Rose makes organic cotton tees and sells most of them at pop-up events. Its founder, Marion, told us how those sales happen: visitors aged roughly 25 to 50 decide quickly, based on the colours, how soft the fabric feels and how she talks about the brand's sustainability.",
-              "That works when Marion is standing there. The harder question is what happens in the gap between caring and buying. Plenty of people say they want sustainable clothes, then pick the £8 high-street tee over the £18 organic one. Researchers call it the value-action gap.",
-              "The brief, for our Digital Studio Practice module at Kingston, was to design a disruptive digital experience for circular fashion, built on three ideas: radical transparency, an urban look rather than the usual eco-minimalism, and giving people agency over the product's whole life.",
+              "An Urban Rose makes organic cotton tees and sells most of them at pop-up events. When we interviewed Marion, the founder, she told us how those sales usually happen. Visitors, roughly 25 to 50, decide quickly, based on the colours, how soft the fabric feels and how she talks about where it comes from.",
+              "That works when Marion is there to tell the story. Our job was the gap between people saying they care about sustainable fashion and actually buying it. Plenty of people say they'd pay more for organic, then pick the £8 high-street tee over the £18 one. There's a name for it in the research, the value-action gap, and we saw it all over our interviews.",
+              "This was a group project for the Digital Studio Practice module of my MSc at Kingston. The brief asked for a digital experience built on radical transparency, a look that felt urban rather than the usual beige eco style, and giving people more say over what happens to the product over its life.",
             ],
           },
           {
             type: "points",
-            heading: "My part",
+            heading: "What I did",
             items: [
-              { title: "UI designer in a team of six", body: "Alongside a project manager, three researchers and a UX designer, over 12 weeks." },
-              { title: "Early explorations", body: "Hand-drawn concepts with the project manager to map the core UI for the try-on." },
-              { title: "Try-on camera view", body: "The mid-fidelity camera view, with the colour selector and size dropdown." },
-              { title: "High-fidelity interface", body: "The final UI, designed to feel like the brand rather than a generic eco app." },
-              { title: "Design system and spec", body: "Figma tokens for colour, typography, grid and components, plus a handoff spec with measurements, spacing and states." },
+              { title: "UI designer in a team of six", body: "Alongside a project manager, three researchers and a UX designer." },
+              { title: "Early explorations", body: "Sketched the first try-on concepts with our project manager." },
+              { title: "Try-on camera view", body: "Designed the mid-fidelity camera screen with the colour picker and size dropdown." },
+              { title: "High-fidelity UI", body: "Designed the final interface." },
+              { title: "Design system and spec", body: "Set up Figma tokens and wrote the developer handoff spec." },
             ],
           },
         ],
@@ -169,110 +169,112 @@ export const anUrbanRose: CaseStudy = {
           {
             type: "text",
             paragraphs: [
-              "Our researchers ran nine interviews in November, alongside the interview with Marion. Five barriers kept coming up:",
+              "Our researchers ran nine interviews in November as well as the one with Marion. When we coded them, five reasons people don't buy sustainable clothes kept coming up:",
             ],
           },
           {
             type: "points",
             items: [
-              { title: "Fit uncertainty", body: "Shoppers aren't sure how a tee will fit or look on them." },
-              { title: "Lack of trust", body: "Shoppers are sceptical of sustainability claims they can't check for themselves." },
-              { title: "Unclear value", body: "The most common barrier by far: 23 coded mentions of high prices with no clear reason for them." },
-              { title: "Low awareness", body: "Marion found customers don't know much about certifications unless they're shown in an obvious, visual way." },
-              { title: "Style worries", body: "Worry that sustainable clothes won't match their style." },
+              { title: "Fit", body: "People weren't sure how the tee would fit or look on them." },
+              { title: "Trust", body: "Shoppers were sceptical of sustainability claims they had no way to check." },
+              { title: "Price", body: "By far the most common one, with 23 coded mentions of high prices and no clear reason for them." },
+              { title: "Awareness", body: "Marion had noticed customers don't know much about certifications unless they're shown in a really obvious way." },
+              { title: "Style", body: "Some people worried sustainable clothes wouldn't match how they dress." },
             ],
           },
         ],
       },
       {
         id: "bets",
-        title: "Three bets",
+        title: "What we bet on",
         blocks: [
           {
             type: "text",
             paragraphs: [
-              "We worked in a Lean UX way: turn each barrier into a hypothesis, build just enough to test it, learn and change course. Three bets made it into the prototype:",
+              "We worked in a Lean UX way, so each barrier became a hypothesis we could test with as little as possible. Three of them made it into the prototype:",
             ],
           },
           {
             type: "points",
             items: [
-              { title: "A virtual try-on will ease fit doubts", body: "If people can see the tee on themselves, they'll feel confident enough to buy. Target: 4 out of 5 or better for finding it and feeling confident using it." },
-              { title: "A product story will build trust", body: "Showing the sourcing, the wages and the certifications, visually, will make the claims believable instead of sounding like greenwashing." },
-              { title: "A side-by-side comparison will justify the price", body: "Put the organic tee next to fast fashion on cost, lifespan and impact, and people will explain the price to themselves." },
+              { title: "Seeing it on yourself will help with fit", body: "If people can see the tee on themselves, they'll feel more confident buying it. We wanted at least 4 out of 5 for finding the try-on and feeling confident using it." },
+              { title: "Showing the supply chain will build trust", body: "If we show the sourcing, wages and certifications visually, the claims will feel real rather than like greenwashing." },
+              { title: "A comparison will explain the price", body: "If people see the tee next to fast fashion on cost per wear, lifespan and impact, they'll understand the price on their own." },
             ],
           },
           {
             type: "text",
             paragraphs: [
-              "A fourth bet, that customer testimonials would increase confidence, was planned but didn't make it into the tested prototype.",
+              "We had a fourth one, that customer testimonials would make people more confident, but we ran out of time to build it into the prototype we tested.",
             ],
           },
         ],
       },
       {
         id: "sprint-1",
-        title: "Sprint 1: the arm's-length problem",
+        title: "The first try-on didn't work",
         blocks: [
           {
             type: "text",
             paragraphs: [
-              "The first version was a straight AR try-on. I designed the mid-fidelity camera view: a virtual tee laid over the front camera, a switch between tees and tote bags, and selectors for size and colour.",
-              "Before spending time on high fidelity, three of us tested it internally. It surfaced two problems quickly. To see the whole tee, you'd have to hold your phone out at arm's length, and the camera would end up at chest height instead of showing your torso. And nobody saw the point of trying on a tote bag. As one of us put it, you can see how a bag looks without AR.",
-              "When we tried a mirror-style view instead, everyone rated it 4 or 5 out of 5 for feeling natural. That pushed us to a hybrid: keep AR for browsing colours, and use AI to generate photos of you wearing the tee, with no arm-stretching. The tote bag went.",
+              "Our first idea was a straightforward AR try-on. I designed the mid-fidelity camera view: a virtual tee over the front camera, a switch between tees and tote bags, and pickers for size and colour.",
+              "Before we spent time on high fidelity, three of us tested it on ourselves, and two problems showed up straight away. To see the whole tee you had to hold your phone at arm's length, and even then the camera sat at chest height. And nobody saw why you'd want to try on a tote bag. You can see what a bag looks like without AR.",
+              "When we tried a mirror-style view instead, everyone rated it 4 or 5 out of 5 for feeling natural. So we moved to a mix: AR for flicking through colours, then AI to generate photos of you wearing the tee. The tote bag was dropped.",
             ],
           },
           {
             type: "media",
             media: figure("explorations", 1468 / 1186, "Sprint 1 try-on explorations"),
-            caption: "The first explorations: front camera, arm's length, tees and tote bags.",
+            caption: "Our first explorations with the front camera.",
           },
           {
-            type: "quote",
-            text: "Internal testing is biased, and we knew it. But it caught a problem that would have been expensive to discover after building everything in high fidelity.",
+            type: "text",
+            paragraphs: [
+              "Testing on ourselves is obviously biased, and we knew that. But it caught a problem that would have cost us a lot more to find after building everything properly.",
+            ],
           },
         ],
       },
       {
         id: "sprint-2",
-        title: "Sprint 2: designing the real thing",
+        title: "Designing the high-fidelity version",
         blocks: [
           {
             type: "text",
             paragraphs: [
-              "With the direction settled, I designed the high-fidelity interface. The brief asked us to move past eco-minimalism towards something more urban, so the UI stays quiet and lets the product photography and the brand do the talking. Over the sprint the screens moved from text-heavy to image- and icon-led, with short supporting copy.",
-              "The flow runs from the QR code on the hang tag to the try-on, the AI shots, the price comparison and finally the product story, which also plays in AR on the display table at the pop-up.",
+              "Once we'd settled the direction, I designed the high-fidelity interface. The brief asked for something more urban than the usual eco look, so I kept the UI quiet and let the photography and brand carry it. Over the sprint the screens went from text-heavy to mostly images and icons with short lines of copy, because people at a pop-up aren't going to read paragraphs.",
+              "The flow goes from the QR code on the tag, to the try-on, the AI photos, the price comparison and then the product story. At the pop-up, the story also plays in AR on the display table.",
             ],
           },
           {
             type: "grid",
             items: [
               { media: clip("tryon", "Choosing a tee colour in the try-on"), caption: "Try-on and colours" },
-              { media: clip("ai-shots", "AI generating shots of the shopper wearing the tee"), caption: "AI shots" },
+              { media: clip("ai-shots", "AI generating shots of the shopper wearing the tee"), caption: "AI photos" },
             ],
           },
           {
             type: "grid",
             items: [
-              { media: clip("compare", "Comparison of fast fashion and An Urban Rose"), caption: "Why the premium price?" },
+              { media: clip("compare", "Comparison of fast fashion and An Urban Rose"), caption: "Why the higher price?" },
               { media: clip("story", "Product story carousel"), caption: "The product story" },
             ],
           },
           {
             type: "media",
             media: figure("merged-flow", 1682 / 1046, "Sprint 2 merged AI and AR flow"),
-            caption: "The full flow, end to end.",
+            caption: "The full flow.",
           },
         ],
       },
       {
         id: "testing",
-        title: "What testing told us",
+        title: "What testing showed us",
         blocks: [
           {
             type: "text",
             paragraphs: [
-              "In January we ran six moderated usability tests over Teams, about 30 minutes each. Participants thought aloud through three tasks (try the tee on, understand why it costs £18 rather than £8, decide whether it's worth it) and then filled in a questionnaire.",
+              "In January we ran six moderated usability tests over Teams, about 30 minutes each. People talked us through three tasks: try the tee on, work out why it costs £18 rather than £8, and decide whether it's worth it. Then they filled in a questionnaire.",
             ],
           },
           {
@@ -287,17 +289,17 @@ export const anUrbanRose: CaseStudy = {
           {
             type: "text",
             paragraphs: [
-              "Five of the six called the design clean and modern, and people explained the price without being prompted. All three bets held up. But the test also showed us what was broken:",
+              "Five of the six described the design as clean and modern, and people explained the price to us without being prompted. All three bets held up. But testing also found things that were broken:",
             ],
           },
           {
             type: "points",
             items: [
-              { title: "People got stuck in the story", body: "Two of six couldn't get out of the product story carousel and kept tapping a back button that didn't respond. We rated it critical." },
-              { title: "It was slow on older phones", body: "Four of six waited 3 to 8 seconds for AR assets on phones more than two years old. One gave up on the try-on." },
-              { title: "The camera icon was misread", body: "One participant read it as 'take a photo' rather than 'start the try-on'." },
-              { title: "Two buttons failed contrast", body: "Our own review found two calls to action that didn't meet WCAG AA." },
-              { title: "Percentages weren't enough", body: "Two of six wanted an actual breakdown in pounds, like £2.50 labour and £3 materials, not percentages." },
+              { title: "People got stuck in the story", body: "Two of the six couldn't get out of the story carousel and kept tapping a back button that didn't work. We marked it as critical." },
+              { title: "It was slow on older phones", body: "Four people waited 3 to 8 seconds for the AR to load on phones over two years old. One gave up on the try-on." },
+              { title: "The camera icon was misread", body: "One person thought it meant take a photo, not start the try-on." },
+              { title: "Two buttons failed contrast", body: "Our own check found two buttons that didn't meet WCAG AA." },
+              { title: "People wanted pounds, not percentages", body: "Two people asked for an actual breakdown, like £2.50 for labour and £3 for materials." },
             ],
           },
           {
@@ -308,24 +310,24 @@ export const anUrbanRose: CaseStudy = {
           {
             type: "text",
             paragraphs: [
-              "Between 5 and 11 January we fixed what we could: compressed the AR and image assets to cut load times, put the try-on button in the same centred position everywhere, and fixed the back navigation.",
+              "Between 5 and 11 January we fixed what we could. We compressed the AR and image files to cut loading times, put the try-on button in the same place on every screen, and fixed the back button.",
             ],
           },
           {
             type: "media",
             media: figure("key-states", 1686 / 774, "Key interface states"),
-            caption: "Key states: AR colour browsing, AI try-on with the comparison chart, and the story carousel.",
+            caption: "Key screens: browsing colours in AR, the AI try-on with the comparison, and the story.",
           },
         ],
       },
       {
         id: "system",
-        title: "A system someone could build",
+        title: "Making it buildable",
         blocks: [
           {
             type: "text",
             paragraphs: [
-              "To keep the screens consistent, and to make the design buildable, I set up a design system with Figma tokens for colour, typography, grid layouts and component properties. I also wrote a design specification for development, with exact measurements, spacing guidelines and every component state.",
+              "To keep the screens consistent and give a developer something to work from, I set up Figma tokens for colour, typography, grids and component properties. I also wrote a design spec with exact measurements, spacing rules and every state each component can be in.",
             ],
           },
           {
@@ -344,17 +346,9 @@ export const anUrbanRose: CaseStudy = {
           {
             type: "text",
             paragraphs: [
-              "The results are encouraging, but the limits are real. Six participants, all aged 26 to 34 and already interested in sustainable fashion, is a small and friendly sample. Most had newer phones. Our Figma prototype simulated AR with still images, so it hid the latency and tracking issues a real build would bring. And testing over Teams can't recreate the feel of a pop-up: the fabric, the music, other shoppers.",
-              "Next, I'd test on a wider range of people and devices, build the testimonials we never got to, and properly test the end-of-life features (care, repair and recycling) that didn't make it into Sprint 2.",
-            ],
-          },
-          {
-            type: "points",
-            heading: "What I'm taking with me",
-            items: [
-              { title: "Test the awkward part first", body: "A quick internal test killed the arm's-length try-on before we'd built it in high fidelity." },
-              { title: "Show, don't claim", body: "Trust came from proof: certifications, sourcing and real numbers. One participant's 'how do I know it's true?' is a reminder that claims alone aren't enough." },
-              { title: "Use numbers people can picture", body: "Percentages explained the price. Pounds and pence would have convinced people." },
+              "The results were good, but I don't want to oversell them. We tested with six people, all aged 26 to 34 and already interested in sustainable fashion, so it was a small and fairly friendly group. Most of them had newer phones. Our Figma prototype faked the AR with still images, which hid the lag and tracking problems a real build would have. And a Teams call is nothing like standing at a pop-up with the music on and the fabric in your hands.",
+              "If we kept going, I'd test with a wider range of people and phones, build the testimonials we never got to, and properly test the care, repair and recycling features that didn't make it into Sprint 2.",
+              "The thing I'll remember most is Participant 5's question. Showing certifications and real sourcing helped, but people still wanted proof they could check, and real numbers in pounds would have done more than percentages did.",
             ],
           },
         ],
